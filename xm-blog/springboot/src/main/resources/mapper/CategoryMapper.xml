@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccw.mapper.CategoryMapper">
+
+    <sql id="Base_Column_List">
+        id,name
+    </sql>
+
+    <insert id="insertCategory" parameterType="com.ccw.entity.Category" useGeneratedKeys="true">
+        insert into category(name) values (#{name});
+    </insert>
+    <update id="updateCategory">
+        update category set name=#{name} where id=#{id};
+    </update>
+    <delete id="deleteCategoryById">
+        delete from category where id = #{id};
+    </delete>
+    <select id="selectById" resultType="com.ccw.entity.Category">
+        select * from category where id = #{id};
+    </select>
+    <select id="selectAll" resultType="com.ccw.entity.Category">
+        select
+        <include refid="Base_Column_List" />
+        from category
+        <where>
+            <if test="id != null"> and id = #{id}</if>
+            <if test="name != null"> and name like concat('%', #{name}, '%')</if>
+        </where>
+    </select>
+
+
+
+
+</mapper>
